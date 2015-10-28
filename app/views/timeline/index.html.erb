@@ -1,40 +1,53 @@
 <h1>Timeline</h1>
-<%=form_tag '/write', method: 'post' do %>
-<div class="form-group">
-     <textarea name="naeyong" class="form-control" row="3"></textarea>
-</div>
-<div class="form-group">
-    <input type="submit"  class="btn btn-success">
-</div>
-   
+
+<hr/>
+<!--<form action="/write" method="post">-->
+
+
+<h3>[Posting]</h3>
+
+<%=form_tag '/write', method: 'post' do%>
+    <div class='form-group'>
+        <textarea name="naeyoung" class="form-control" rows='2'></textarea>
+    </div>
+    
+    <div class='form-group' align="right">
+        <input type="submit" value="등록" class='btn btn-primary' >
+    </div>
 <% end %>
+<hr/>
+
 <ul>
+    
     <% @blogs.each do |b| %>
-    <li>
-        <p class="bg-info">
-         <%=b.user.email%> :   
-        </p>
-        <div class="well">
-        <%=b.content%> 
-        </div>
- 
-        <%=form_tag '/comment', class: "form-inline" do%>
-        <input type="hidden" name="blog_id" value="<%=b.id%>">
+    <li><h4><%=b.user.email%> <a href="/page?id=<%=b.user.id%>">go to page</a> </h4>
+    <div class="well">
+        <%=b.content%>
+    </div>
+    
+    <div class="edit&delete" align="right">
+        <a href="/edit?id=<%=b.id%>">edit</a>
+        <a href="/destroy?id=<%=b.id%>">delete</a>
+    </div>
+    <!--<form action="/comment" method="post">-->
+    <%=form_tag '/comment', class: "form-inline" do%>
+        <input type='hidden' name="blog_id" value="<%=b.id%>">
         <div class="form-group">
             <input type="text" name="comment" class="form-control">
-        
         </div>
-       
-        <div class="form-group">
-        <input type="submit" class="btn btn-primary">
-        </div>
-        
-        <% end %>
-        <ol>
-        <% b.comments.each do |c| %>
-            <li><%=c.user.email%> : <%=c.msg%></li>
-        <% end %>
-        </ol>
+        <input type="submit">
+    <% end %>
+    
+    <ol>
+    <% b.comments.each do |c| %>
+        <li><%=c.user.email%> : <%=c.msg%>
+        <a href="comment_edit?id=<%=c.id%>">edit</a>
+        <a href="comment_destroy?id=<%=c.id%>">delete</a>
+        </li>
+    <% end %>
+    </ol>
+    <hr/>
     </li>
     <% end %>
+
 </ul>

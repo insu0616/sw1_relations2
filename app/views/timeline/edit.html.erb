@@ -1,0 +1,9 @@
+<h1>Edit page</h1>
+
+<p>edit post : <%=@blog.id%></p>
+
+<form action='/update'>
+    <input type='hidden' name='id' value='<%=@blog.id%>'>
+    <textarea name='naeyoung'><%=@blog.content%></textarea><br>
+    <input type="submit">
+</form>
